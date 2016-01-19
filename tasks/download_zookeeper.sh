@@ -3,26 +3,24 @@
 set -x
 set -e
 
-RELEASES_DIR=`dirname "$(readlink -f "$0")"`/../releases
+ROOT_DIR=`dirname "$(readlink -f "$0")"`/..
+
+RELEASES_DIR=$ROOT_DIR/releases
 VERSIONS_DIR=$RELEASES_DIR/versions
+
+VERSION=`cat $ROOT_DIR/version`
 
 MIRROR_URL=http://www.us.apache.org/dist/zookeeper
 
-ZOOKEEPER_VERSIONS=(
-    "3.3.6"
-    "3.4.6"
-    "3.5.0-alpha"
-    "3.5.1-alpha"
-)
-
 ZOOKEEPER_DEFAULT_VERSION=3.5.1-alpha
 
-for i in "${ZOOKEEPER_VERSIONS[@]}"
-do
+unset ZOOKEEPER_DEFAULT_VERSION
+while read -r i; do
     if [[ $i == $ZOOKEEPER_VERSION ]]; then
         MATCHES=$ZOOKEEPER_VERSION
     fi
-done
+    ZOOKEEPER_DEFAULT_VERSION=$i
+done <<< "$VERSION"
 
 if [[ -z $MATCHES ]] || [[ -z $ZOOKEEPER_VERSION ]]; then
     ZOOKEEPER_VERSION=$ZOOKEEPER_DEFAULT_VERSION
@@ -43,4 +41,3 @@ if [[ -f $RELEASES_DIR/current ]] || [[ -d $RELEASES_DIR/current ]] || [[ -L $RE
 fi
 
 ln -s $VERSIONS_DIR/zookeeper-$ZOOKEEPER_VERSION $RELEASES_DIR/current
-
