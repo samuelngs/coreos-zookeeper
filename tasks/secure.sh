@@ -10,7 +10,6 @@ rm -fr /etc/periodic
 
 # Remove all but a handful of admin commands.
 find /sbin /usr/sbin ! -type d \
-  -a ! -name exim \
   -a ! -name nologin \
   -delete
 
@@ -48,9 +47,6 @@ find $sysdirs -xdev -type f -regex '.*-$' -exec rm -f {} +
 find $sysdirs -xdev -type d \
   -exec chown root:root {} \; \
   -exec chmod 0755 {} \;
-
-# Remove suid bit from exim.
-chmod u-s /usr/sbin/exim
 
 # Remove all suid files.
 find $sysdirs -xdev -type f -a -perm +4000 -delete
