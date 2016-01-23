@@ -29,14 +29,13 @@ if [[ ! -d $VERSIONS_DIR ]]; then
 fi
 
 if [[ ! -d $VERSIONS_DIR/zookeeper-$ZOOKEEPER_VERSION ]]; then
-
     curl -sSL $MIRROR_URL/zookeeper-$ZOOKEEPER_VERSION/zookeeper-$ZOOKEEPER_VERSION.tar.gz | tar -xzf - -C $VERSIONS_DIR
-
-    if [[ -f $RELEASES_DIR/current ]] || [[ -d $RELEASES_DIR/current ]] || [[ -L $RELEASES_DIR/current ]]; then
-        rm -rf $RELEASES_DIR/current
-    fi
-
-    ln -s $VERSIONS_DIR/zookeeper-$ZOOKEEPER_VERSION $RELEASES_DIR/current
-
 fi
+
+if [[ -f $RELEASES_DIR/current ]] || [[ -d $RELEASES_DIR/current ]] || [[ -L $RELEASES_DIR/current ]]; then
+    rm -rf $RELEASES_DIR/current
+fi
+
+ln -s $VERSIONS_DIR/zookeeper-$ZOOKEEPER_VERSION $RELEASES_DIR/current
+
 
