@@ -12,8 +12,6 @@ VERSION=`cat $ROOT_DIR/version`
 
 MIRROR_URL=http://www.us.apache.org/dist/zookeeper
 
-ZOOKEEPER_DEFAULT_VERSION=3.5.1-alpha
-
 unset ZOOKEEPER_DEFAULT_VERSION
 while read -r i; do
     if [[ $i == $ZOOKEEPER_VERSION ]]; then
