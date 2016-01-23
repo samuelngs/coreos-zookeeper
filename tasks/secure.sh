@@ -20,8 +20,8 @@ find / -xdev -type d -perm +0002 -exec chmod o-w {} +
 find / -xdev -type f -perm +0002 -exec chmod o-w {} +
 
 # Remove unnecessary user accounts, including root.
-sed -i -r '/^(mail)/!d' /etc/group
-sed -i -r '/^(mail)/!d' /etc/passwd
+sed -i -r '/^(nobody)/!d' /etc/group
+sed -i -r '/^(nobody)/!d' /etc/passwd
 
 # Remove interactive login shell for everybody but user.
 sed -i -r 's#^(.*):[^:]*$#\1:/sbin/nologin#' /etc/passwd
@@ -42,11 +42,6 @@ find $sysdirs -xdev -regex '.*apk.*' -exec rm -fr {} +
 #   /etc/passwd-
 #   /etc/group-
 find $sysdirs -xdev -type f -regex '.*-$' -exec rm -f {} +
-
-# Ensure system dirs are owned by root and not writable by anybody else.
-find $sysdirs -xdev -type d \
-  -exec chown root:root {} \; \
-  -exec chmod 0755 {} \;
 
 # Remove all suid files.
 find $sysdirs -xdev -type f -a -perm +4000 -delete
