@@ -7,7 +7,7 @@ ENV PATH ${PATH}:${ZOOKEEPER_HOME}/bin
 
 # Add files
 ADD releases/current $ZOOKEEPER_HOME
-ADD tasks/secure.sh $ZOOKEEPER_HOME/bin
+ADD scripts/secure.sh $ZOOKEEPER_HOME/bin
 
 ADD zoo.cfg $ZOOKEEPER_HOME/conf
 

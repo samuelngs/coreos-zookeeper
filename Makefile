@@ -9,5 +9,5 @@ PACKAGE_DIR := $(dirname "$(readlink -f "$0")")
 all: latest
 
 latest:
-	@./tasks/download_zookeeper.sh ||:
+	@./scripts/download_zookeeper.sh ||:
 	@tar -czh . | docker build --rm -t zookeeper -
